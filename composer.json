@@ -6,7 +6,8 @@
     "type": "project",
     "require": {        
         "php": ">=5.5.9",
-        "laravel/framework": "5.2.*"
+        "laravel/framework": "5.2.*",
+        "aimeos/aimeos-laravel": "~2016.07"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
@@ -41,6 +42,9 @@
         ],
         "post-update-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postUpdate",
+            "php artisan vendor:publish --tag=public --force",
+            "php artisan vendor:publish",
+            "php artisan migrate",
             "php artisan optimize"
         ]
     },

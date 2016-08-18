@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -11,9 +12,11 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(GateContract $gate)
     {
-        //
+        $gate->define('admin', function($user, $roles) {
+            return app( '\Aimeos\Shop\Base\Support' )->checkGroup( $user->id, $roles );
+        });
     }
 
     /**
